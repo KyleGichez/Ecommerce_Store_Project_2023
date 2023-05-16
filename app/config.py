@@ -16,6 +16,7 @@ class ProdConfig(Config):
 #Create development configuration
 class DevConfig(Config):
     DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///myapp.db'
     
 #Create testing configuration
 class TestConfig(Config):
