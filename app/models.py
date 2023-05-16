@@ -25,7 +25,7 @@ class Customer(db.Model):
         self.email = email
     
     def __repr__(self):
-        return f"Customer('{self.id}','{self.first_name}','{self.last_name}','{self.address}','{self.city}','{self.postcode}','{self.email}')"
+        return f"Customer('{self.id}', '{self.first_name}', '{self.last_name}', '{self.address}', '{self.city}', '{self.postcode}', '{self.email}')"
     
     
 #Create an orders table model
@@ -51,7 +51,7 @@ class Order(db.Model):
         self.coupon_code = coupon_code
     
     def __repr__(self):
-        return f"Order('{self.id}', {self.ordered_date}, {self.shipped_date}, {self.delivered_date}, {self.coupon_code})"
+        return f"Order('{self.id}', '{self.ordered_date}', '{self.shipped_date}', '{self.delivered_date}', '{self.coupon_code}')"
     
     
 #Create a products table model
@@ -67,7 +67,7 @@ class Product(db.Model):
         self.price = price
         
     def __repr__(self):
-        return f"Product('{self.id}, {self.name}, {self.price}')"
+        return f"Product('{self.id}', '{self.name}', '{self.price}')"
     
     
 #Create an order_products table model
@@ -85,5 +85,5 @@ class OrderProduct(db.Model):
         self.product_id = product_id
         
     def __repr__(self):
-        return f"OrderProduct('{self.id}, {self.order_id}, {self.product_id}')"
+        return f"OrderProduct('{self.id}', '{self.order_id}', '{self.product_id}')"
     
