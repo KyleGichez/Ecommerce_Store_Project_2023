@@ -87,3 +87,4 @@ class OrderProduct(db.Model):
     def __repr__(self):
         return f"OrderProduct('{self.id}', '{self.order_id}', '{self.product_id}')"
     
+        
