@@ -1,7 +1,7 @@
 from .extensions import db
 from datetime import datetime
 
-#Create a customers table model
+# Create a customers table model
 class Customer(db.Model):
     __tablename__ = 'customers'
     
@@ -13,7 +13,7 @@ class Customer(db.Model):
     postcode = db.Column(db.integer, nullable=False)
     email = db.Column(db.string(255), nullable=False, unique=True)
     
-    #Create a database relationship that links a customer to all their orders
+    # Create a database relationship that links a customer to all their orders
     orders = db.relationship('Order', backref='customer')
     
     def __init__(self, first_name, last_name, address, city, postcode, email):
@@ -28,7 +28,7 @@ class Customer(db.Model):
         return f"Customer('{self.id}', '{self.first_name}', '{self.last_name}', '{self.address}', '{self.city}', '{self.postcode}', '{self.email}')"
     
     
-#Create an orders table model
+# Create an orders table model
 class Order(db.Model):
     __tablename__ = 'orders'
     
@@ -41,7 +41,7 @@ class Order(db.Model):
     #Create a database relationship that links an order to the customer
     customer_id = db.Column(db.integer, db.ForeignKey('customers.id'), nullable=False) 
     
-    #Create a database relationship that links an order to the products   
+    #Create a database relationship that links an orders to a product   
     products = db.relationship('Product', secondary='OrderProduct')
     
     def __init__(self, ordered_date, shipped_date, delivered_date, coupon_code):
@@ -54,7 +54,7 @@ class Order(db.Model):
         return f"Order('{self.id}', '{self.ordered_date}', '{self.shipped_date}', '{self.delivered_date}', '{self.coupon_code}')"
     
     
-#Create a products table model
+# Create a products table model
 class Product(db.Model):
     __tablename__ = 'products'
     
@@ -70,13 +70,13 @@ class Product(db.Model):
         return f"Product('{self.id}', '{self.name}', '{self.price}')"
     
     
-#Create an order_products table model
+# Create an order_products table model
 class OrderProduct(db.Model):
     __tablename__ = 'order_products'
     
     id = db.Column(db.integer, primary_key=True, nullable=False)
     
-    #Create a database relationship that links an order to a product and vice-versa 
+    # Create a database relationship that links an order to a product and vice-versa 
     order_id = db.Column(db.integer, db.ForeignKey('orders.id'), primary_key=True, nullable=False)
     product_id = db.Column(db.integer, db.ForeignKey('products.id'), primary_key=True, nullable=False)
     
