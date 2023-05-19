@@ -1,7 +1,8 @@
-from flask import Flask
+from flask import Flask, current_app
 from .config import config_options
-from .extensions import register_extensions
+from flask_sqlalchemy import SQLAlchemy
 
+db = SQLAlchemy()
 
 #Register blueprint
 def register_blueprint(app):
@@ -14,9 +15,13 @@ def create_app(config_name):
     print("Flask application running on:", config_name , "server")
     
     app = Flask(__name__)
-    app.config.from_object(config_options.get(config_name))
+    app.config.from_object(config_options.get(config_name))      
+    db.init_app(app)
     
-    register_extensions(app)
+    # register_extensions(app)
     register_blueprint(app)
     
+    with app.app_context():
+        current_app.run()
+        
     return app
