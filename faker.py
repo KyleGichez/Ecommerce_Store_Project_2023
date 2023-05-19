@@ -1,7 +1,7 @@
 from app.models import(
     Customer, Order, Product
 )
-from app.extensions import db
+from app import db
 from faker import Faker
 import random
 
