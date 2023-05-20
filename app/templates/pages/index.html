@@ -36,6 +36,51 @@
         </form>
       </div>
     </div>
-  </nav>
+</nav>
+
+
+<div class="container">
+  <div class="row">
+
+    <!--Card 1-->
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">All Customers</h5>
+  
+        {% for customer in customers %}
+        <h6 class="card-subtitle mb-2 text-muted">{{customer.id}}. {{customer.first_name}} {{customer.last_name}}</h6>
+        {% endfor %}
+  
+      </div>
+    </div>
+
+    <!--Card 2-->
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">All Customer Orders</h5>
+        <hr>
+  
+        {% for order in customer_orders %}
+        <h6 class="card-subtitle mb-2 text-muted">{{order.id}}. {{order.ordered_date}}</h6>
+        {% endfor %}
+  
+      </div>
+    </div>
+
+    <!--Card 3-->
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">All Pending Orders</h5>
+        <hr>
+  
+        {% for order in pending_orders %}
+          <h6 class="card-subtitle mb-2 text-muted">{{order.id}}. {{order.customer.first_name}} {{order.customer.last_name}} {{order.ordered_date}}</h6>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+</div>
+
 
 {% endblock %}
