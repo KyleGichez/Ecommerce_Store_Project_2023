@@ -1,12 +1,13 @@
 from app import *
 from app import create_app
-#from faker import create_fake_data
-#from app import db
+from fake_data import create_fake_data
+from app.models import db
 
 # Create application server
-app = create_app('development')
+app = create_app('development', db)
 
 if __name__ == '__main__':   
-    #create_fake_data()
+    with app.app_context():
+        create_fake_data()
              
-    current_app.run(debug=True)
+    app.run(debug=True)
