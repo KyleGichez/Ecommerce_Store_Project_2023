@@ -22,10 +22,13 @@ def homepage():
     customer_orders = Order.query.filter_by(customer_id = customer_id).all()
     
     # Get all pending orders
-    pending_orders = Order.query.filter_by(customer_id = customer_id).filter(Order.shipped_date.is_(None)).order_by(Order.ordered_date.desc()).all()
+    pending_orders = Order.query.filter(Order.shipped_date.is_(None)).order_by(Order.ordered_date.desc()).all()
+    
+    # Get all orders with a coupon code except FLASH50
+    orders = Order.query.filter(Order.coupon_code.isnot(None)).filter(Order.coupon_code != 'FLASH50').all()
         
         
-    template = render_template('pages/index.html', title=title, customers = customers, total_customers = total_customers, customer_orders = customer_orders, order = pending_orders)
+    template = render_template('pages/index.html', title=title, customers = customers, total_customers = total_customers, customer_orders = customer_orders, pending_orders = pending_orders, orders = orders)
     response = make_response(template)
     
     return response
