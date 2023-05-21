@@ -11,24 +11,50 @@ from . import auth
 def homepage():
     title = 'E-commerce Store Project 2023'
     
-    # Count all customers
-    total_customers = Customer.query.count()
+    # How many customers?
+    def count_all_customers():
+        print("How many customers?")
+        
+        total_customers = Customer.query.count()
+        print(total_customers)
+        
+        return count_all_customers()        
     
-    # Get all customer info
-    customers = Customer.query.all()
     
-    # Get customer orders by customer_id
-    customer_id = 1
-    customer_orders = Order.query.filter_by(customer_id = customer_id).all()
+    # Get all customer orders by customer_id
+    def get_customer_orders(customer_id = 1):
+        customer_orders = Order.query.filter_by(customer_id = customer_id).all()
+        print(customer_orders)
+        
+        for order in customer_orders:
+            print(order.id, order.order_id, order.customer.first_name)
+        
+        return get_customer_orders()
+        
     
     # Get all pending orders
-    pending_orders = Order.query.filter(Order.shipped_date.is_(None)).order_by(Order.ordered_date.desc()).all()
+    def get_pending_orders(): 
+        pending_orders = Order.query.filter(Order.shipped_date.is_(None)).order_by(Order.ordered_date.desc()).all()
+        print(pending_orders)
+        
+        for order in pending_orders:
+            print(order.id, order.ordered_date)
+        
+        return get_pending_orders()
     
     # Get all orders with a coupon code except FLASH50
-    orders = Order.query.filter(Order.coupon_code.isnot(None)).filter(Order.coupon_code != 'FLASH50').all()
+    def orders_with_coupon_code():
+        coupon_codes = Order.query.filter(Order.coupon_code.isnot(None)).filter(Order.coupon_code != 'FLASH50').all()
+        print(coupon_codes)
+        
+        for order in coupon_codes:
+            print(order.id, order.coupon_code, order.ordered_date)
+            
+        return orders_with_coupon_code()
         
         
-    template = render_template('pages/index.html', title=title, customers = customers, total_customers = total_customers, customer_orders = customer_orders, pending_orders = pending_orders, orders = orders)
+        
+    template = render_template('pages/index.html', title=title)
     response = make_response(template)
     
     return response
