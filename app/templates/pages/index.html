@@ -45,7 +45,8 @@
     <!--Card 1-->
     <div class="card" style="width: 18rem;">
       <div class="card-body">
-        <h5 class="card-title">All Customers</h5>
+        <h5 class="card-title">All Customers <small>{{total_customers}}</small> </h5>
+        <hr>
   
         {% for customer in customers %}
         <h6 class="card-subtitle mb-2 text-muted">{{customer.id}}. {{customer.first_name}} {{customer.last_name}}</h6>
@@ -79,6 +80,20 @@
 
       </div>
     </div>
+
+      <!--Card 4-->
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">All Orders with a coupon code </h5>
+          <hr>
+    
+          {% for order in orders %}
+            <h6 class="card-subtitle mb-2 text-muted">{{order.id}}. {{order.coupon_code}}</h6>
+          {% endfor %}
+  
+        </div>
+      </div>
+
   </div>
 </div>
 

@@ -16,7 +16,7 @@ class Customer(db.Model):
     email = db.Column(db.String(255), nullable=False, unique=True)
     
     # Create a database relationship that links a customer to all their orders
-    orders = db.relationship('Order', backref='customer')
+    orders = db.relationship('Order', backref=db.backref('customer', lazy = True))
     
     def __init__(self, first_name, last_name, address, city, postcode, email):
         self.first_name = first_name
