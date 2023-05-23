@@ -4,6 +4,7 @@ from flask import(
 from app.models import(
     Customer, Product, Order, db
 )
+from datetime import datetime, timedelta
 
 from . import auth
 
@@ -52,6 +53,16 @@ def homepage():
             
         return orders_with_coupon_code()
         
+        
+    # Get revenue in last X days
+    def get_revenue(x_days = 30):
+        order_product = order_product
+        total_revenue = db.session.query(db.func.sum(Product.price)).join(order_product).join(Order).filter(Order.ordered_date > (datetime.now())- timedelta(days=x_days))
+        print(total_revenue)
+        
+        return get_revenue(total_revenue)
+    
+    
         
         
     template = render_template('pages/index.html', title=title)
