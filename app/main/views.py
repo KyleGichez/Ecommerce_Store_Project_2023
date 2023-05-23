@@ -57,7 +57,7 @@ def homepage():
     # Get revenue in last X days
     def get_revenue(x_days = 30):
         order_product = order_product
-        total_revenue = db.session.query(db.func.sum(Product.price)).join(order_product).join(Order).filter(Order.ordered_date > (datetime.now())- timedelta(days=x_days))
+        total_revenue = db.session.query(db.func.sum(Product.price)).join(order_product).join(Order).filter(Order.ordered_date > (datetime.now())- timedelta(days=x_days)).scalar()
         print(total_revenue)
         
         return get_revenue(total_revenue)
