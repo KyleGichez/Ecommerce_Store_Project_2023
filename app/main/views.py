@@ -19,7 +19,7 @@ def homepage():
         total_customers = Customer.query.count()
         print(total_customers)
         
-        return count_all_customers()        
+        return count_all_customers(total_customers)        
     
     
     # Get all customer orders by customer_id
@@ -30,8 +30,8 @@ def homepage():
         for order in customer_orders:
             print(order.id, order.order_id, order.customer.first_name)
         
-        return get_customer_orders()
-        
+        return get_customer_orders(customer_orders)
+    
     
     # Get all pending orders
     def get_pending_orders(): 
@@ -41,7 +41,8 @@ def homepage():
         for order in pending_orders:
             print(order.id, order.ordered_date)
         
-        return get_pending_orders()
+        return get_pending_orders(pending_orders)
+    
     
     # Get all orders with a coupon code except FLASH50
     def orders_with_coupon_code():
@@ -52,8 +53,8 @@ def homepage():
             print(order.id, order.coupon_code, order.ordered_date)
             
         return orders_with_coupon_code()
-        
-        
+    
+    
     # Get revenue in last X days
     def get_revenue(x_days = 30):
         order_product = order_product
@@ -63,7 +64,16 @@ def homepage():
         return get_revenue(total_revenue)
     
     
+    # Get average fulfilment time
+    def get_average_time():
+        fulfilment_time = db.session.query(db.func.time(db.func.avg(db.func.strftime('%s', Order.shipped_date) - db.fuc.strftime('%s', Order.ordered_date)), 'uniexpoch')).filter(Order.shipped_date.isnot(None)).scalar()
+        print(fulfilment_time)
         
+        return get_average_time(fulfilment_time)
+    
+    
+    # Get customers who have spent X amount of dollars 
+    
         
     template = render_template('pages/index.html', title=title)
     response = make_response(template)
