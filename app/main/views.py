@@ -73,7 +73,15 @@ def homepage():
     
     
     # Get customers who have spent X amount of dollars 
-    
+    def get_customers_who_have_purchased_x_dollars(amount=500):
+        print('All customers who have purchased x dollars')
+        order_product = order_product
+        customers = db.session.query(Customer).join(Order).join(order_product).join(Product).group_by(Customer).having(db.func.sum(Product.price) > amount).all()
+        for customer in customers:
+            print(customer.first_name)
+        
+        return get_customers_who_have_purchased_x_dollars(700)
+        
         
     template = render_template('pages/index.html', title=title)
     response = make_response(template)
