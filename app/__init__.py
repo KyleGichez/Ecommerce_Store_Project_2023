@@ -1,5 +1,6 @@
 from flask import Flask
 from .config import config_options
+from .extensions import register_extensions
 
 # Register blueprint
 def register_blueprint(app):
@@ -8,15 +9,13 @@ def register_blueprint(app):
     
 
 # Create and initialize a new flask application
-def create_app(config_name, db):
+def create_app(config_name):
     print("Flask application running on:", config_name , "server")
     
     app = Flask(__name__)
     app.config.from_object(config_options.get(config_name))  
-    db.app = app    
-    db.init_app(app)
     
-    # register_extensions(app)
+    register_extensions(app)
     register_blueprint(app)
         
     return app
